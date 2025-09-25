@@ -1,0 +1,13 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><title>Dashboard Guru</title></head>
+<body class="bg-light"><div class="container py-4">
+<div class="d-flex justify-content-between"><h3>Halo, {{ user['full_name'] }} (Guru)</h3><div><a class="btn btn-sm btn-secondary" href="{{ url_for('logout') }}">Logout</a></div></div>
+<div class="my-2"><a class="btn btn-success" href="{{ url_for('add_student') }}">Tambah Siswa Bimbingan</a></div>
+<div class="row"><div class="col-md-4">
+  <div class="card mb-3"><div class="card-body"><h5>Siswa Bimbingan</h5>
+  {% if students %}<ul class="list-group">{% for s in students %}<li class="list-group-item d-flex justify-content-between align-items-center">{{ s['full_name'] }} <span><a href="{{ url_for('edit_student', sid=s['id']) }}" class="btn btn-sm btn-outline-primary">Edit</a> <form style="display:inline" method="post" action="{{ url_for('delete_student', sid=s['id']) }}"><button class="btn btn-sm btn-outline-danger">Hapus</button></form></span></li>{% endfor %}</ul>{% else %}<p>Belum ada siswa.</p>{% endif %}</div></div>
+</div><div class="col-md-8"><div class="card"><div class="card-body"><h5>Rekap Kegiatan</h5>
+{% if entries %}<table class="table"><thead><tr><th>Nama</th><th>Tanggal</th><th>Bangun</th><th>Sholat</th><th>Olahraga</th></tr></thead><tbody>{% for e in entries %}<tr><td>{{ e['full_name'] }}</td><td>{{ e['date'] }}</td><td>{{ e['wake_time'] }}</td><td>{{ e['prayer'] }}</td><td>{{ e['sport'] }}</td></tr>{% endfor %}</tbody></table>
+<a class="btn btn-outline-primary" href="{{ url_for('export_teacher', teacher_id=user['id']) }}">Download Rekap (.xlsx)</a>
+{% else %}<p>Tidak ada rekap.</p>{% endif %}
+</div></div></div></div></div></body></html>

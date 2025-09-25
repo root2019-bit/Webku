@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"><title>Dashboard Siswa</title></head>
+<body class="bg-light"><div class="container py-4">
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Halo, {{ user['full_name'] or user['username'] }} (Siswa)</h3>
+  <div><a class="btn btn-sm btn-secondary" href="{{ url_for('logout') }}">Logout</a></div>
+</div>
+<div class="mb-3">
+  <a class="btn btn-success" href="{{ url_for('student_input') }}">Input Kegiatan</a>
+</div>
+<div class="card"><div class="card-body">
+  <h5>Riwayat Input</h5>
+  {% if entries %}
+    <table class="table"><thead><tr><th>Tanggal</th><th>Bangun</th><th>Sholat</th><th>Olahraga</th><th>Makan</th><th>Belajar</th><th>Bermasyarakat</th><th>Tidur</th></tr></thead>
+    <tbody>{% for e in entries %}<tr><td>{{ e['date'] }}</td><td>{{ e['wake_time'] }}</td><td>{{ e['prayer'] }}</td><td>{{ e['sport'] }}</td><td>{{ e['food_notes'] }}</td><td>{{ e['study_notes'] }}</td><td>{{ e['community_notes'] }}</td><td>{{ e['sleep_time'] }}</td></tr>{% endfor %}</tbody></table>
+  {% else %}<p>Belum ada input.</p>{% endif %}
+</div></div>
+</div></body></html>
